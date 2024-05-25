@@ -48,7 +48,7 @@ def _retrieve_potential_match_info(is_mentor: bool):
     cursor.execute('SELECT * FROM USERS WHERE MATCHING_ROLE = %s AND ISMATCHED IS FALSE',
                    ("Mentee",) if is_mentor else ("Mentor",))
     entries = cursor.fetchall()
-    print(entries)
+
     cursor.close()
     conn.close()
     return entries

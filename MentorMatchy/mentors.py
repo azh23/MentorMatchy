@@ -60,15 +60,39 @@ def match(email):
     status = cursor.fetchone()
     if status is None:
         return jsonify({'error': 'Invalid email address'}), 400
-    match_emails = return_match_emails(status, is_mentor = (status[9] == 'Mentor'))
+    print(status)
+    match_emails = return_match_emails(status, is_mentor = (status[8] == 'Mentor'))
 
-    return {}, 201
+    matched_candidate_list = []
 
-@app.route('/matched/mentor/<string:email>/mentee/<string:email2>')
+    for email in match_emails:
+        cursor.execute("SELECT * FROM USERS WHERE EMAIL_ADDRESS = %s;", (email,))
+        matched_users = [dict((cursor.description[i][0], value) \
+        for i, value in enumerate(row)) for row in cursor.fetchall()]
+        matched_candidate_list.extend(matched_users)
+
+    return jsonify(matched_candidate_list), 201
+
+@app.route('/matched/mentor/<string:email>/mentee/<string:email2>', methods = ['PUT'])
 def confirm_match(email, email2):
-    pass
+    cursor.execute("UPDATE USERS SET ISMATCHED = TRUE WHERE EMAIL_ADDRESS = %s",
+                   (email, ))
+    database.commit()
 
-# Converts sql query into json.
+    cursor.execute("UPDATE USERS SET MATCHED_EMAIL = %s WHERE EMAIL_ADDRESS = %s",
+                   (email2, email))
+    database.commit()
+
+    cursor.execute("UPDATE USERS SET ISMATCHED = TRUE WHERE EMAIL_ADDRESS = %s",
+                   (email2, ))
+    database.commit()
+
+    cursor.execute("UPDATE USERS SET MATCHED_EMAIL = %s WHERE EMAIL_ADDRESS = %s",
+                   (email, email2))
+    database.commit()
+    return jsonify({'status': 'Success'}), 201
+
+# Converts SQL query into JSON.
 def sql_to_json(query: str, parameters = ()):
     cursor.execute(query, parameters)
     users = [dict((cursor.description[i][0], value) \

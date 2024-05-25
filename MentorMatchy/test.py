@@ -1,8 +1,26 @@
 from flask import Flask, jsonify, request
-from MentorMatchy.__init__ import app
+#from MentorMatchy.__init__ import app
 #from main import app
 import json
+import psycopg2
+import os
+from dotenv import load_dotenv
+load_dotenv()
 
+conn = psycopg2.connect(os.getenv('DATABASE_URL'))
+
+cursor = conn.cursor()
+
+cursor.execute("ALTER TABLE USERS ADD LOOKING_FOR TEXT;")
+conn.commit()
+cursor.execute("UPDATE USERS SET LOOKING_FOR ='Professional Matching' WHERE EMAIL_ADDRESS = 'tarazhang1@gmail.com';")
+cursor.execute("UPDATE USERS SET LOOKING_FOR ='Professional Matching' WHERE EMAIL_ADDRESS = 'coralee@gmail.com';")
+
+conn.commit()
+
+cursor.close()
+conn.close()
+"""
 print('Test file is running')
 #app = Flask(__name__)
 database = ''
@@ -30,3 +48,4 @@ def create_employee():
 
 if __name__ == '__main__':
    app.run(debug=True)
+   """

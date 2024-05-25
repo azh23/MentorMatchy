@@ -6,27 +6,27 @@ load_dotenv()
 
 conn = psycopg2.connect(os.getenv('DATABASE_URL'))
 
-cursor = conn.cursor()
-cursor.execute("""
-               CREATE TABLE IF NOT EXISTS USERS (
-               FIRST_NAME TEXT, 
-               LAST_NAME TEXT, 
-               EMAIL_ADDRESS TEXT PRIMARY KEY, 
-               PRONOUNS TEXT, 
-               ABOUT_ME TEXT, 
-               INTERESTS TEXT, 
-               INDUSTRY TEXT, 
-               PHOTO_LINK TEXT,
-               MATCHING_ROLE TEXT,
-               WORK_STYLE INT,
-               FOCUS_STYLE INT,
-               SOLVE_PROBLEM_STYLE INT,
-               LEAD_STYLE INT,
-               EXPERIENCE INT,
-               ISMATCHED BOOLEAN,
-               MATCHED_EMAIL TEXT)
-               """)
-conn.commit()
+# cursor = conn.cursor()
+# cursor.execute("""
+#                CREATE TABLE IF NOT EXISTS USERS (
+#                FIRST_NAME TEXT, 
+#                LAST_NAME TEXT, 
+#                EMAIL_ADDRESS TEXT PRIMARY KEY, 
+#                PRONOUNS TEXT, 
+#                ABOUT_ME TEXT, 
+#                INTERESTS TEXT, 
+#                INDUSTRY TEXT, 
+#                PHOTO_LINK TEXT,
+#                MATCHING_ROLE TEXT,
+#                WORK_STYLE INT,
+#                FOCUS_STYLE INT,
+#                SOLVE_PROBLEM_STYLE INT,
+#                LEAD_STYLE INT,
+#                EXPERIENCE INT,
+#                ISMATCHED BOOLEAN,
+#                MATCHED_EMAIL TEXT)
+#                """)
+# conn.commit()
 
 
 # cursor.execute("""

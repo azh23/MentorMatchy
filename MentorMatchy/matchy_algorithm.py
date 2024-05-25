@@ -1,2 +1,2 @@
-def retrieve_matches(email: int):
+def retrieve_matches(email: str, is_mentor):
     pass

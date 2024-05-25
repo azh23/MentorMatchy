@@ -19,6 +19,7 @@ cursor.execute("""
                INDUSTRY TEXT, 
                ADDRESS TEXT, 
                PHOTO_LINK TEXT,
+               MATCHING_ROLE TEXT,
                MATCHED_EMAIL TEXT)
                """)
 
@@ -30,6 +31,7 @@ cursor.execute("""
                PROBLEM_STYLE INT, 
                LEAD_STYLE INT, 
                EXPERIENCE INT, 
+               LOOKING_FOR STR,
                ISMATCHED BOOLEAN)
                """)
 conn.commit()

@@ -9,30 +9,22 @@ conn = psycopg2.connect(os.getenv('DATABASE_URL'))
 cursor = conn.cursor()
 cursor.execute("""
                CREATE TABLE IF NOT EXISTS USERS (
-               EMAIL_ADDRESS TEXT PRIMARY KEY, 
                FIRST_NAME TEXT, 
                LAST_NAME TEXT, 
+               EMAIL_ADDRESS TEXT PRIMARY KEY, 
                PRONOUNS TEXT, 
-               AGE INT, 
                ABOUT_ME TEXT, 
                INTERESTS TEXT, 
                INDUSTRY TEXT, 
-               ADDRESS TEXT, 
                PHOTO_LINK TEXT,
                MATCHING_ROLE TEXT,
+               WORK_STYLE INT,
+               FOCUS_STYLE INT,
+               SOLVE_PROBLEM_STYLE INT,
+               LEAD_STYLE INT,
+               EXPERIENCE INT,
+               ISMATCHED BOOLEAN,
                MATCHED_EMAIL TEXT)
-               """)
-
-cursor.execute("""
-               CREATE TABLE IF NOT EXISTS PROFILE (
-               EMAIL_ADDRESS STRING PRIMARY KEY, 
-               WORK_STYLE INT, 
-               FOCUS_STYLE INT, 
-               PROBLEM_STYLE INT, 
-               LEAD_STYLE INT, 
-               EXPERIENCE INT, 
-               LOOKING_FOR STR,
-               ISMATCHED BOOLEAN)
                """)
 conn.commit()
 
@@ -44,14 +36,8 @@ conn.commit()
 #                """)
 # conn.commit()
 
-# cursor.execute("""
-#                INSERT INTO PROFILE
-#                (EMAIL_ADDRESS, WORK_STYLE, FOCUS_STYLE, PROBLEM_STYLE, LEAD_STYLE, EXPERIENCE, ISMATCHED) 
-#                VALUES('connieay@uci.edu', 5, 5, 5, 5, 5, TRUE)
-#                """)
-# conn.commit()
 
-cursor.execute("SELECT * FROM PROFILE")
+cursor.execute("SELECT * FROM USERS")
 rows = cursor.fetchall()
 print(rows)
 cursor.close()

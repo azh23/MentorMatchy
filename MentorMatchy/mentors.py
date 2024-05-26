@@ -10,7 +10,7 @@ app = Flask(__name__)
 # GENERIC
 
 # Retrieve users by email.
-@app.route('/<string:email>', methods=['GET'])
+@app.route('/email/<string:email>', methods=['GET'])
 def get_by_email(email: str):
     # * ASK WHEN THEY GET TO THIS POINT: If *no* person exists on the email address, 
     # are they ok with null being returned?
@@ -104,6 +104,10 @@ if __name__ == '__main__':
 
    database = psycopg2.connect(os.getenv('DATABASE_URL'))
    cursor = database.cursor()
-   app.run(debug=True, port=5000)
+   app.run(debug=True, port=3000)
    cursor.close()
    database.close()
+
+# fetch("localhost:3000/path").then(result=> {
+#   do something with result
+# })

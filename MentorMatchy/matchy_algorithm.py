@@ -119,12 +119,3 @@ def return_match_emails(user_info: list, is_mentor: bool) -> list[str]:
     
     # Return a list of emails.
     return [info[0] for info in top_scores]
-
-
-
-
-
-# Numerical scale of 1 to 10
-# List of all your users and O(n^2) do double for loop and compare every user against one another and 
-# then you calculate the absolute value differences between each personality value; do some summation of the differences; 
-# one with least differences with each other is a better match

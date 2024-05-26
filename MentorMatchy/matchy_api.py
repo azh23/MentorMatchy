@@ -11,7 +11,6 @@ flask_cors.CORS(app)
 
 # GENERIC
 
-tarazhang1@gmail.com
 # Retrieve users by email.
 @app.route('/email/<string:email>', methods=['GET'])
 def get_by_email(email: str):
@@ -110,7 +109,7 @@ if __name__ == '__main__':
 
    database = psycopg2.connect(os.getenv('DATABASE_URL'))
    cursor = database.cursor()
-   app.run(debug=True, port=3000)
+   app.run(host = 'localhost', debug=True, port=3000)
    cursor.close()
    database.close()
 

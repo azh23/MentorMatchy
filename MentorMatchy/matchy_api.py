@@ -4,11 +4,14 @@ import json, os, psycopg2
 from psycopg2.extensions import AsIs
 from dotenv import load_dotenv
 from matchy_algorithm import return_match_emails
+import flask_cors
 
 app = Flask(__name__)
+flask_cors.CORS(app)
 
 # GENERIC
 
+tarazhang1@gmail.com
 # Retrieve users by email.
 @app.route('/email/<string:email>', methods=['GET'])
 def get_by_email(email: str):
@@ -23,6 +26,7 @@ def retrieve_all():
 
 # Insert a user.
 @app.route('/user', methods=['POST'])
+@flask_cors.cross_origin()
 def post_user():
     try:
         user = json.loads(request.data)
@@ -40,6 +44,8 @@ def post_user():
     except Exception as e:
         return jsonify({'error': str(e)}), 400
 
+    location = jsonify({'location': f'/{user['EMAIL_ADDRESS']}'})
+    location.headers.add('Access-Control-Allow-Origin', '*')
     return jsonify({'location': f'/{user['EMAIL_ADDRESS']}'}), 201
 
 # Retrieve all mentors.

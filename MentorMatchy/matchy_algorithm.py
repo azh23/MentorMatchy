@@ -41,6 +41,8 @@ IMPORTANCE_MULT = 2.0
 # The minimum score a 4th or 5th match needs to be returned. 
 MIN_SCORE = 10.0
 
+MAX_RATING = 10
+
 def _retrieve_potential_match_info(is_mentor: bool):
     conn = psycopg2.connect(os.getenv('DATABASE_URL'))
     cursor = conn.cursor()
@@ -78,8 +80,8 @@ def _get_discrete_factor_score(factor_str, important_factors, user_info, candida
     return score
 
 def _get_quantitative_factor_score(factor_str, important_factors, user_info, candidate):
-    score = 5 - abs(candidate[s2n[factor_str]] - user_info[s2n[factor_str]])
-    score /= 5
+    score = MAX_RATING - abs(candidate[s2n[factor_str]] - user_info[s2n[factor_str]])
+    score /= MAX_RATING
 
     if factor_str in important_factors:
         score *= IMPORTANCE_MULT
